@@ -1,0 +1,25 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+  port: 80
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mariadb://${rds.hostname}:${rds.port}/${rds.db.name}?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: ${rds.username}
+    password: ${rds.password}
+  jpa:
+    hibernate:
+      ddl-auto: none
+      default_batch_fetch_size: 100 # in query
+    open-in-view: false
+logging:
+  level:
+    '[shop.mtcoding.metablog]': INFO
