@@ -34,3 +34,6 @@ logging:
   level:
     '[shop.mtcoding.metablog]': DEBUG
     '[org.hibernate.type]': TRACE
+
+file:
+  path: ./upload/

@@ -1,4 +1,6 @@
 package shop.mtcoding.metablog.model.board;
 
-public interface BoardRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BoardRepository extends JpaRepository<Long, Board> {
 }
