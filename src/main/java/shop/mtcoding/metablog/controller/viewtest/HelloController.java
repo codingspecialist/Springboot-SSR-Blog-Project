@@ -1,4 +1,4 @@
-package shop.mtcoding.metablog.controller;
+package shop.mtcoding.metablog.controller.viewtest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package shop.mtcoding.metablog.core.exception;
+package shop.mtcoding.metablog.core.exception.csr;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -7,12 +7,12 @@ import shop.mtcoding.metablog.dto.ValidDTO;
 
 // 유효성 검사 실패, 잘못된 파라메터 요청
 @Getter
-public class Exception400 extends RuntimeException {
+public class ExceptionApi400 extends RuntimeException {
 
     private String key;
     private String value;
 
-    public Exception400(String key, String value) {
+    public ExceptionApi400(String key, String value) {
         super(value);
         this.key = key;
         this.value = value;

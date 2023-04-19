@@ -34,7 +34,8 @@ public class SecurityConfig {
 
         // 3. 인증, 권한 필터 설정
         http.authorizeRequests(
-                authorize -> authorize.antMatchers("/s/**").authenticated()
+                authorize -> authorize.antMatchers("/api/s/**").authenticated()
+                        .antMatchers("/s/**").authenticated()
                         .anyRequest().permitAll()
         );
 
