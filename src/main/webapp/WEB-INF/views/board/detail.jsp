@@ -4,7 +4,7 @@
 
 
 <div class="container my-3">
-        <div class="mb-3">
+        <div class="mb-3 d-flex">
             <a href="/board/1/updateForm" class="btn btn-warning">수정</a>
             <form>
                 <input type="hidden" name="id" />

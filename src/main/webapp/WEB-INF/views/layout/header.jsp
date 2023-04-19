@@ -30,7 +30,6 @@
         <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
             <ul class="navbar-nav">
 
-
                 <li class="nav-item">
                     <a class="nav-link" href="/loginForm">로그인</a>
                 </li>
