@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div>작성자 : ${board.user.username}</div>
                     <h4 class="card-title my-text-ellipsis">${board.title}</h4>
-                    <a href="/board/1" class="btn btn-primary">상세보기</a>
+                    <a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
                 </div>
             </div>
             <%-- 글 아이템 끝 --%>

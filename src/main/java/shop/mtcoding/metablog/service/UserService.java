@@ -21,6 +21,7 @@ public class UserService {
     @Value("${file.path}")
     private String uploadFolder;
 
+    // INSERT, UPDATE, DELETE 는 try catch 필수
     @MyLog
     @Transactional
     public void 회원가입(UserRequest.JoinInDTO joinInDTO){

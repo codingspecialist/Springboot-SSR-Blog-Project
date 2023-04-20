@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.metablog.core.annotation.MyLog;
+import shop.mtcoding.metablog.core.exception.ssr.Exception400;
 import shop.mtcoding.metablog.core.exception.ssr.Exception500;
 import shop.mtcoding.metablog.dto.board.BoardRequest;
 import shop.mtcoding.metablog.model.board.Board;
@@ -41,7 +42,7 @@ public class BoardService {
         // 1. API 요청이면 BoardResponse.BoardListOutDTO 가 필요함
         // 2. API 요청이 아니기 때문에 Entity를 응답할 수 있음.
         // 3. OSIV가 false이기 때문에 Lazy Loading을 Service 단에서 완료해야 함.
-        // 4. 아래와 같이 Lazy Loading 하게 되면 1+N 문제 발생
+        // 4. 아래와 같이 컬렉션을 Lazy Loading 하게 되면 1+N 문제 발생 (중요 : 컬렉션일때만)
         boardPG.getContent().stream().forEach(board -> {
             board.getUser().getUsername();
         });
@@ -53,5 +54,17 @@ public class BoardService {
         // FetchJoin
         Page<Board> boardPG = boardQueryRepository.findAll(pageRequest);
         return boardPG;
+    }
+
+    @MyLog
+    public Board 게시글상세보기(Long id) {
+        Board boardPS = boardRepository.findById(id).orElseThrow(
+                ()-> new Exception400("id", "아이디를 찾을 수 없습니다")
+        );
+        // 1. Lazy Loading 하는 것 보다 join fetch 하는 것이 좋다.
+        // 2. 왜 Lazy를 쓰냐면, 쓸데 없는 조인 쿼리를 줄이기 위해서이다.
+        // 3. 사실 @ManyToOne은 Eager 전략을 쓰는 것이 좋다.
+        // boardPS.getUser().getUsername();
+        return boardPS;
     }
 }

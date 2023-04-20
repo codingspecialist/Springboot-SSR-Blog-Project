@@ -26,6 +26,13 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    @GetMapping( "/board/{id}")
+    public String detail(@PathVariable Long id, Model model){
+        Board board = boardService.게시글상세보기(id);
+        model.addAttribute("board", board);
+        return "board/detail";
+    }
+
     @GetMapping({"/", "/board"})
     public String main(@RequestParam(defaultValue = "0") int page, Model model){
         PageRequest pageRequest = PageRequest.of(page, 8, Sort.by("id").descending());
