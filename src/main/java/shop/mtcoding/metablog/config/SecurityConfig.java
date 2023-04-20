@@ -3,9 +3,10 @@ package shop.mtcoding.metablog.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import shop.mtcoding.metablog.core.auth.MyUserDetails;
+import shop.mtcoding.metablog.model.user.User;
 
 @Configuration
 public class SecurityConfig {
@@ -28,7 +29,10 @@ public class SecurityConfig {
         http.formLogin()
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/login")
-                .successHandler((eq, resp, authentication) -> {
+                .successHandler((req, resp, authentication) -> {
+                    // 템플릿엔진에서 꺼내쓰기 위해 적용함
+                    MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
+                    req.getSession().setAttribute("sessionUser", myUserDetails.getUser());
                     System.out.println("디버그 : 로그인이 완료되었습니다");
                     resp.sendRedirect("/");
                 })
