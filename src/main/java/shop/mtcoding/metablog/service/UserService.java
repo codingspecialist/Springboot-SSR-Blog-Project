@@ -23,8 +23,14 @@ public class UserService {
 
     @MyLog
     @Transactional
-    public void 회원가입(UserRequest.JoinInDTO joinInDTO) throws Exception500 {
-        joinInDTO.setPassword(passwordEncoder.encode(joinInDTO.getPassword()));
-        userRepository.save(joinInDTO.toEntity());
+    public void 회원가입(UserRequest.JoinInDTO joinInDTO){
+        // try catch를 걸어야 repository 에서 터지는 에러를 잡을 수 있고, 잡으면 RuntimeException으로 던져야 handler가 처리할 수 있다.
+        try {
+            joinInDTO.setPassword(passwordEncoder.encode(joinInDTO.getPassword()));
+            userRepository.save(joinInDTO.toEntity());
+        }catch (Exception e){
+            throw new Exception500("회원가입 실패 : "+e.getClass());
+        }
+
     }
 }
