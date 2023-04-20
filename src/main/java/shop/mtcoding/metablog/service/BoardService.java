@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.metablog.core.annotation.MyLog;
 import shop.mtcoding.metablog.core.exception.ssr.Exception400;
 import shop.mtcoding.metablog.core.exception.ssr.Exception500;
+import shop.mtcoding.metablog.core.util.MyParseUtil;
 import shop.mtcoding.metablog.dto.board.BoardRequest;
 import shop.mtcoding.metablog.model.board.Board;
 import shop.mtcoding.metablog.model.board.BoardQueryRepository;
@@ -30,9 +31,11 @@ public class BoardService {
     @Transactional
     public void 글쓰기(BoardRequest.SaveInDTO saveInDTO, User user) {
         try {
-            boardRepository.save(saveInDTO.toEntity(user));
+            String thumbnail = MyParseUtil.getThumbnail(saveInDTO.getContent());
+            System.out.println("디버그 : thumbnail : "+thumbnail);
+            boardRepository.save(saveInDTO.toEntity(user, thumbnail));
         }catch (Exception e){
-            throw new Exception500("글쓰기 실패 : "+e.getClass());
+            throw new Exception500("글쓰기 실패 : "+e.getMessage());
         }
     }
 

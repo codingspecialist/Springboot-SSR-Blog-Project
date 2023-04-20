@@ -19,7 +19,9 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     private String title;
+    @Lob
     private String content;
+    @Lob
     private String thumbnail;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
