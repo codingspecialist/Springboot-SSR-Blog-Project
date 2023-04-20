@@ -15,9 +15,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true, length = 20)
     private String username;
+    @Column(length = 60)
     private String password;
+    @Column(length = 50)
     private String email;
     private String role; // USER(고객)
     private String profile;

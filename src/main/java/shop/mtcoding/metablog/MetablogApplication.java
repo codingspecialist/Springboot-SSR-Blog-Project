@@ -19,6 +19,7 @@ public class MetablogApplication {
                     .username("ssar")
                     .password(passwordEncoder.encode("1234"))
                     .email("ssar@nate.com")
+                    .role("USER")
                     .build();
             userRepository.save(ssar);
         };
