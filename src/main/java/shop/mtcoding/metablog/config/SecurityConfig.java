@@ -39,7 +39,10 @@ public class SecurityConfig {
                 .failureHandler((req, resp, ex) -> {
                     System.out.println("디버그 : 로그인 실패 -> " + ex.getMessage());
                     resp.sendRedirect("/loginForm");
-                });
+                })
+                .and()
+                .logout()
+                .logoutSuccessUrl("/");
 
         // 3. 인증, 권한 필터 설정
         http.authorizeRequests(
