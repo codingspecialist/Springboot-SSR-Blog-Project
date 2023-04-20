@@ -21,6 +21,7 @@ public class BoardRequest {
                     .user(user)
                     .title(title)
                     .content(content)
+                    .thumbnail("/images/dora.png")
                     .build();
         }
     }

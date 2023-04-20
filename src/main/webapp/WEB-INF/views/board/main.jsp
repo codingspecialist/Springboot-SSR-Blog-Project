@@ -5,54 +5,19 @@
 <div class="container my-3">
     <div class="my-board-box row">
 
-        <%-- 글 아이템 시작 --%>
-        <div class="card col-lg-3 pt-2">
-            <img class="card-img-top" style="height: 250px;" src="/images/dora.png" alt="Card image">
-            <hr/>
-            <div class="card-body">
-                <div>작성자 : 홍길동</div>
-                <h4 class="card-title my-text-ellipsis">글제목</h4>
-                <a href="/board/1" class="btn btn-primary">상세보기</a>
+        <c:forEach items="${boardPG.content}" var="board">
+            <%-- 글 아이템 시작 --%>
+            <div class="card col-lg-3 pt-2">
+                <img class="card-img-top" style="height: 250px;" src="${board.thumbnail}" alt="Card image">
+                <hr/>
+                <div class="card-body">
+                    <div>작성자 : ${board.user.username}</div>
+                    <h4 class="card-title my-text-ellipsis">${board.title}</h4>
+                    <a href="/board/1" class="btn btn-primary">상세보기</a>
+                </div>
             </div>
-        </div>
-        <%-- 글 아이템 끝 --%>
-
-        <%-- 글 아이템 시작 --%>
-        <div class="card col-lg-3 pt-2">
-            <img class="card-img-top" style="height: 250px;" src="/images/dora.png" alt="Card image">
-            <hr/>
-            <div class="card-body">
-                <div>작성자 : 홍길동</div>
-                <h4 class="card-title my-text-ellipsis">글제목</h4>
-                <a href="/board/1" class="btn btn-primary">상세보기</a>
-            </div>
-        </div>
-        <%-- 글 아이템 끝 --%>
-
-        <%-- 글 아이템 시작 --%>
-        <div class="card col-lg-3 pt-2">
-            <img class="card-img-top" style="height: 250px;" src="/images/dora.png" alt="Card image">
-            <hr/>
-            <div class="card-body">
-                <div>작성자 : 홍길동</div>
-                <h4 class="card-title my-text-ellipsis">글제목</h4>
-                <a href="/board/1" class="btn btn-primary">상세보기</a>
-            </div>
-        </div>
-        <%-- 글 아이템 끝 --%>
-
-        <%-- 글 아이템 시작 --%>
-        <div class="card col-lg-3 pt-2">
-            <img class="card-img-top" style="height: 250px;" src="/images/dora.png" alt="Card image">
-            <hr/>
-            <div class="card-body">
-                <div>작성자 : 홍길동</div>
-                <h4 class="card-title my-text-ellipsis">글제목</h4>
-                <a href="/board/1" class="btn btn-primary">상세보기</a>
-            </div>
-        </div>
-        <%-- 글 아이템 끝 --%>
-
+            <%-- 글 아이템 끝 --%>
+        </c:forEach>
     </div>
 
     <ul class="pagination mt-3 d-flex justify-content-center">
