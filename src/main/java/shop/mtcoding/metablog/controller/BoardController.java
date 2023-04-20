@@ -33,7 +33,7 @@ public class BoardController {
     }
 
     @PostMapping("/board/save")
-    public @ResponseBody String save(
+    public String save(
             @Valid BoardRequest.SaveInDTO saveInDTO,
             Errors errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
