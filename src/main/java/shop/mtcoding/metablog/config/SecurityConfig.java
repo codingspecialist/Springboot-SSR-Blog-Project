@@ -3,6 +3,7 @@ package shop.mtcoding.metablog.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -16,10 +17,14 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         // 1. CSRF 해제
         http.csrf().disable(); // postman 접근해야 함!! - CSR 할때!!
 
-        // 2. Form 로그인 설정
+        // 2. frame option 해제
+        http.headers().frameOptions().disable();
+
+        // 3. Form 로그인 설정
         http.formLogin()
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/login")
