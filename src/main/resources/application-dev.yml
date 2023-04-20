@@ -25,7 +25,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-      default_batch_fetch_size: 100 # in query
+      default_batch_fetch_size: 100 # in query는 oneToMany 혹은 ManyToMany에서만 발동
     open-in-view: false
   output:
     ansi:

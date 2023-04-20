@@ -32,7 +32,6 @@ public class BoardService {
     public void 글쓰기(BoardRequest.SaveInDTO saveInDTO, User user) {
         try {
             String thumbnail = MyParseUtil.getThumbnail(saveInDTO.getContent());
-            System.out.println("디버그 : thumbnail : "+thumbnail);
             boardRepository.save(saveInDTO.toEntity(user, thumbnail));
         }catch (Exception e){
             throw new Exception500("글쓰기 실패 : "+e.getMessage());
@@ -45,7 +44,9 @@ public class BoardService {
         // 1. API 요청이면 BoardResponse.BoardListOutDTO 가 필요함
         // 2. API 요청이 아니기 때문에 Entity를 응답할 수 있음.
         // 3. OSIV가 false이기 때문에 Lazy Loading을 Service 단에서 완료해야 함.
-        // 4. 아래와 같이 컬렉션을 Lazy Loading 하게 되면 1+N 문제 발생 (중요 : 컬렉션일때만)
+        // 4. 아래와 같이 컬렉션의 연관된 엔티티 하나를 Lazy Loading 하게 되면 1+N 문제 발생
+        // 5. @ManyToOne을 Lazy 전략으로 가져가면 default_batch_fetch_size 가 발동하지 않는다.
+        // 6. @ManyToOne을 Lazy 전략으로 가져갈 때 findAll로 컬렉션을 조회하려면 join fetch를 해주자.
         boardPG.getContent().stream().forEach(board -> {
             board.getUser().getUsername();
         });
@@ -61,7 +62,7 @@ public class BoardService {
 
     @MyLog
     public Board 게시글상세보기(Long id) {
-        Board boardPS = boardRepository.findById(id).orElseThrow(
+        Board boardPS = boardRepository.findByIdFetchUser(id).orElseThrow(
                 ()-> new Exception400("id", "아이디를 찾을 수 없습니다")
         );
         // 1. Lazy Loading 하는 것 보다 join fetch 하는 것이 좋다.

@@ -41,7 +41,7 @@ public class MetablogApplication {
             Board b2 = Board.builder()
                     .title("제목2")
                     .content("내용2")
-                    .user(ssar)
+                    .user(cos)
                     .thumbnail("/images/dora.png")
                     .build();
             boardRepository.saveAll(Arrays.asList(b1, b2));
