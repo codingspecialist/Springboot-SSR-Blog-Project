@@ -3,3 +3,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.error-msg {
+    margin-left: 10px;
+    font-size: 9px;
+    color: red;
+}
