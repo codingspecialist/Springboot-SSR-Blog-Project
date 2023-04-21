@@ -41,12 +41,12 @@ public class BoardController {
         return "board/main";
     }
 
-    @GetMapping("/boards/saveForm")
+    @GetMapping("/s/boards/saveForm")
     public String saveForm() {
         return "board/saveForm";
     }
 
-    @PostMapping("/boards/save")
+    @PostMapping("/s/boards/save")
     public String save(
             @Valid BoardRequest.SaveInDTO saveInDTO,
             Errors errors,

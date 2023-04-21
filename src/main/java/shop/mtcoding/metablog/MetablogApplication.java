@@ -23,12 +23,14 @@ public class MetablogApplication {
                     .password(passwordEncoder.encode("1234"))
                     .email("ssar@nate.com")
                     .role("USER")
+                    .profile("person.png")
                     .build();
             User cos = User.builder()
                     .username("cos")
                     .password(passwordEncoder.encode("1234"))
                     .email("cos@nate.com")
                     .role("USER")
+                    .profile("person.png")
                     .build();
             userRepository.saveAll(Arrays.asList(ssar, cos));
 
@@ -36,13 +38,13 @@ public class MetablogApplication {
                     .title("제목1")
                     .content("내용1")
                     .user(ssar)
-                    .thumbnail("/images/dora.png")
+                    .thumbnail("/upload/person.png")
                     .build();
             Board b2 = Board.builder()
                     .title("제목2")
                     .content("내용2")
                     .user(cos)
-                    .thumbnail("/images/dora.png")
+                    .thumbnail("/upload/person.png")
                     .build();
             boardRepository.saveAll(Arrays.asList(b1, b2));
         };

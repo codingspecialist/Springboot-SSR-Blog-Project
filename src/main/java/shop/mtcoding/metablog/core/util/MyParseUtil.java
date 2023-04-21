@@ -12,7 +12,7 @@ public class MyParseUtil {
         Elements els = doc.select("img");
 
         if(els.size() == 0){
-            thumbnail= "/images/dora.png";
+            thumbnail= "/upload/person.png";
         }else{
             Element el = els.get(0);
             thumbnail = el.attr("src");

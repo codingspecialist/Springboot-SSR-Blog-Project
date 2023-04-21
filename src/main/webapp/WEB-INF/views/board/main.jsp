@@ -8,7 +8,7 @@
         <c:forEach items="${boardPG.content}" var="board">
             <%-- 글 아이템 시작 --%>
             <div class="card col-lg-3 pt-2">
-                <img class="card-img-top" style="height: 250px;" src="${board.thumbnail}" alt="Card image">
+                <img class="card-img-top" style="height: 250px;" src="${board.thumbnail}">
                 <hr/>
                 <div class="card-body">
                     <div>작성자 : ${board.user.username}</div>

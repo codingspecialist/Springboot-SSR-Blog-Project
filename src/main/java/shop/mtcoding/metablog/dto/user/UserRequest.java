@@ -33,6 +33,7 @@ public class UserRequest {
                     .email(email)
                     .role("USER")
                     .status(true)
+                    .profile("person.png")
                     .build();
         }
     }

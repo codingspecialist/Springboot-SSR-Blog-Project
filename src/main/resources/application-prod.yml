@@ -20,6 +20,10 @@ spring:
       ddl-auto: none
       default_batch_fetch_size: 100 # in query
     open-in-view: false
+    servlet:
+      multipart:
+        max-file-size: 10MB
+        enabled: true
 logging:
   level:
     '[shop.mtcoding.metablog]': INFO

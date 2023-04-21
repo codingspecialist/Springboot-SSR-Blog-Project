@@ -34,25 +34,36 @@
     }
     .btn {
         margin-top: 1rem;
-        width: 20%;
+        width: 100%;
     }
 </style>
 
 <div class="container my-3">
-    <h2 class="text-center">프로필 사진 변경 페이지</h2>
-    <form>
+    <form action="/s/users/${user.id}/updateProfile" method="post" enctype="multipart/form-data" onsubmit="return valid()">
         <div class="form-group">
-            <img src="/images/dora.png" alt="Current Photo" class="img-fluid" id="imagePreview">
+            <img src="/upload/${user.profile}" alt="Current Photo" class="img-fluid" id="imagePreview">
         </div>
         <div class="form-group">
             <input type="file" class="form-control" id="profile" name="profile" onchange="chooseImage(this)">
         </div>
-        <button type="submit" class="btn btn-primary">사진변경</button>
+        <button class="btn btn-primary">사진변경</button>
     </form>
 </div>
 
 <script>
+    let changeProfileState = false;
+
+    function valid(){
+        if(changeProfileState){
+            return true;
+        }else{
+            alert("프로필 사진이 변경되지 않았습니다");
+            return false;
+        }
+    }
+
     function chooseImage(obj){
+        changeProfileState = true;
         //console.log(obj);
         //console.log(obj.files);
         let f  = obj.files[0];

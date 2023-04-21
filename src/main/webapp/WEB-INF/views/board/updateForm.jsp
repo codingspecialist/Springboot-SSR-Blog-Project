@@ -3,7 +3,7 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container my-3">
-    <form class="mb-1">
+    <form action="/s/boards/1/update" class="mb-1">
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Enter title" name="title" value="글제목">
         </div>

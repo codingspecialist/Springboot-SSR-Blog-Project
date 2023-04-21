@@ -2,6 +2,7 @@ package shop.mtcoding.metablog.core.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
+import shop.mtcoding.metablog.core.exception.ssr.Exception500;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +19,7 @@ public class MyFileUtil {
             Path filePath = Paths.get(uploadFolder + uuidFilename);
             Files.write(filePath, file.getBytes());
         } catch (Exception e) {
-            throw new RuntimeException("파일 업로드 실패");
+            throw new Exception500("파일 업로드 실패 : "+e.getMessage());
         }
         return uuidFilename;
     }

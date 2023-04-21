@@ -27,6 +27,10 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public void changeProfile(String profile){
+        this.profile = profile;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
