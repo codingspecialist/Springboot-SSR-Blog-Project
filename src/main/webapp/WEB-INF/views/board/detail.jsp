@@ -7,7 +7,7 @@
     <c:if test="${sessionUser.id == board.user.id}">
         <div class="mb-3 d-flex">
             <a href="/s/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
-            <form action="/s/board/${board.id}/delete">
+            <form action="/s/board/${board.id}/delete" method="post">
                 <button class="btn btn-danger">삭제</button>
             </form>
         </div>

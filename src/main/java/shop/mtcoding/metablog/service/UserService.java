@@ -41,7 +41,7 @@ public class UserService {
             joinInDTO.setPassword(passwordEncoder.encode(joinInDTO.getPassword()));
             userRepository.save(joinInDTO.toEntity());
         }catch (Exception e){
-            throw new Exception500("회원가입 실패 : "+e.getClass());
+            throw new Exception500("회원가입 실패 : "+e.getMessage());
         }
 
     }

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.metablog.core.auth.MyUserDetails;
+import shop.mtcoding.metablog.core.util.Script;
 import shop.mtcoding.metablog.dto.board.BoardRequest;
 import shop.mtcoding.metablog.dto.board.BoardResponse;
 import shop.mtcoding.metablog.model.board.Board;
@@ -25,6 +26,12 @@ import javax.validation.Valid;
 public class BoardController {
 
     private final BoardService boardService;
+
+    @PostMapping("/s/board/{id}/delete")
+    public String delete(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        boardService.게시글삭제(id, myUserDetails.getUser().getId());
+        return "redirect:/";
+    }
 
     @GetMapping("/s/board/{id}/updateForm")
     public String updateForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {

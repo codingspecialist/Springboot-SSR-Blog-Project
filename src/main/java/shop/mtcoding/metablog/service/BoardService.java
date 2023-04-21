@@ -64,7 +64,7 @@ public class BoardService {
     @MyLog
     public Board 게시글상세보기(Long id) {
         Board boardPS = boardRepository.findByIdFetchUser(id).orElseThrow(
-                ()-> new Exception400("id", "아이디를 찾을 수 없습니다")
+                ()-> new Exception400("id", "게시글 아이디를 찾을 수 없습니다")
         );
         // 1. Lazy Loading 하는 것 보다 join fetch 하는 것이 좋다.
         // 2. 왜 Lazy를 쓰냐면, 쓸데 없는 조인 쿼리를 줄이기 위해서이다.
@@ -76,11 +76,27 @@ public class BoardService {
     @MyLog
     public Board 게시글수정상세보기(Long id, Long userId) {
         Board boardPS = boardRepository.findByIdFetchUser(id).orElseThrow(
-                ()-> new Exception400("id", "아이디를 찾을 수 없습니다")
+                ()-> new Exception400("id", "게시글 아이디를 찾을 수 없습니다")
         );
         if(boardPS.getUser().getId().longValue() != userId){
             throw new Exception403("권한이 없습니다");
         }
         return boardPS;
+    }
+
+    @MyLog
+    @Transactional
+    public void 게시글삭제(Long id, Long userId) {
+        try {
+            Board boardPS = boardRepository.findByIdFetchUser(id).orElseThrow(
+                    ()-> new Exception400("id", "게시글 아이디를 찾을 수 없습니다")
+            );
+            if(boardPS.getUser().getId() != userId){
+                throw new Exception403("권한이 없습니다");
+            }
+            boardRepository.delete(boardPS);
+        }catch (Exception e){
+            throw new Exception500("게시글 삭제 실패 : "+e.getMessage());
+        }
     }
 }
