@@ -5,8 +5,8 @@
 
 <div class="container my-3">
         <div class="mb-3 d-flex">
-            <a href="/s/boards/${board.id}/updateForm" class="btn btn-warning">수정</a>
-            <form action="/s/boards/${board.id}/delete">
+            <a href="/s/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
+            <form action="/s/board/${board.id}/delete">
                 <button class="btn btn-danger">삭제</button>
             </form>
         </div>

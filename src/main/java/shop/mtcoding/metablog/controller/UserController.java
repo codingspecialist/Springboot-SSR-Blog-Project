@@ -47,18 +47,30 @@ public class UserController {
         return Script.href("회원가입 성공", "/loginForm");
     }
 
-    @GetMapping("/s/users/{id}/updateProfileForm")
+    @GetMapping("/s/user/{id}/updateForm")
+    public String updateForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        // 1. 권한 체크
+        if(id != myUserDetails.getUser().getId()){
+            throw new Exception403("권한이 없습니다");
+        }
+        // 2. 회원 정보 조회
+        User userPS = userService.회원정보보기(id);
+        model.addAttribute("user", userPS);
+        return "user/updateForm";
+    }
+
+    @GetMapping("/s/user/{id}/updateProfileForm")
     public String profileUpdateForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails){
         // 1. 권한 체크
         if(id != myUserDetails.getUser().getId()){
             throw new Exception403("권한이 없습니다");
         }
-        User userPS = userService.프로필사진보기(id);
+        User userPS = userService.회원프로필보기(id);
         model.addAttribute("user", userPS);
         return "user/profileUpdateForm";
     }
 
-    @PostMapping("/s/users/{id}/updateProfile")
+    @PostMapping("/s/user/{id}/updateProfile")
     public @ResponseBody String profileUpdate(
             @PathVariable Long id,
             MultipartFile profile,

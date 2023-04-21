@@ -49,7 +49,7 @@
 
     async function sameUsername() {
         let username = document.querySelector("#username").value;
-        let response = await fetch("/api/users/"+username+"/sameUsername");
+        let response = await fetch("/api/user/"+username+"/sameUsername");
         if(response.status === 200){
             alert("해당 유저네임을 사용할 수 있습니다");
             document.querySelector("#usernameErrorMsg").innerHTML = "";

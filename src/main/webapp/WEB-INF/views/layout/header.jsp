@@ -41,10 +41,10 @@
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
-                            <a class="nav-link" href="/s/boards/saveForm">글쓰기</a>
+                            <a class="nav-link" href="/s/board/saveForm">글쓰기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/s/users/${sessionUser.id}/updateForm">회원정보</a>
+                            <a class="nav-link" href="/s/user/${sessionUser.id}/updateForm">회원정보</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">로그아웃</a>
@@ -54,7 +54,7 @@
             </ul>
             <c:if test="${sessionUser != null}">
                 <div>
-                    <a href="/s/users/${sessionUser.id}/updateProfileForm"><img src="/upload/${sessionUser.profile}"
+                    <a href="/s/user/${sessionUser.id}/updateProfileForm"><img src="/upload/${sessionUser.profile}"
                                                                                 style="width: 35px;"
                                                                                 class="rounded-circle"
                                                                                 alt="Cinque Terre"></a>

@@ -26,14 +26,21 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping( "/boards/{id}")
+    @GetMapping("/s/board/{id}/updateForm")
+    public String updateForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        Board board = boardService.게시글수정상세보기(id, myUserDetails.getUser().getId());
+        model.addAttribute("board",board);
+        return "board/updateForm";
+    }
+
+    @GetMapping( "/board/{id}")
     public String detail(@PathVariable Long id, Model model){
         Board board = boardService.게시글상세보기(id);
         model.addAttribute("board", board);
         return "board/detail";
     }
 
-    @GetMapping({"/", "/boards"})
+    @GetMapping({"/", "/board"})
     public String main(@RequestParam(defaultValue = "0") int page, Model model){
         PageRequest pageRequest = PageRequest.of(page, 8, Sort.by("id").descending());
         Page<Board> boardPG = boardService.게시글목록보기V2(pageRequest);
@@ -41,12 +48,12 @@ public class BoardController {
         return "board/main";
     }
 
-    @GetMapping("/s/boards/saveForm")
+    @GetMapping("/s/board/saveForm")
     public String saveForm() {
         return "board/saveForm";
     }
 
-    @PostMapping("/s/boards/save")
+    @PostMapping("/s/board/save")
     public String save(
             @Valid BoardRequest.SaveInDTO saveInDTO,
             Errors errors,

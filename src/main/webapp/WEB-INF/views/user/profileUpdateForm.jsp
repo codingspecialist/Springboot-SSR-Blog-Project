@@ -39,7 +39,7 @@
 </style>
 
 <div class="container my-3">
-    <form action="/s/users/${user.id}/updateProfile" method="post" enctype="multipart/form-data" onsubmit="return valid()">
+    <form action="/s/user/${user.id}/updateProfile" method="post" enctype="multipart/form-data" onsubmit="return valid()">
         <div class="form-group">
             <img src="/upload/${user.profile}" alt="Current Photo" class="img-fluid" id="imagePreview">
         </div>
@@ -51,21 +51,7 @@
 </div>
 
 <script>
-    let changeProfileState = false;
-
-    function valid(){
-        if(changeProfileState){
-            return true;
-        }else{
-            alert("프로필 사진이 변경되지 않았습니다");
-            return false;
-        }
-    }
-
     function chooseImage(obj){
-        changeProfileState = true;
-        //console.log(obj);
-        //console.log(obj.files);
         let f  = obj.files[0];
         if(!f.type.match("image.*")){
             alert("이미지를 등록해야 합니다.");

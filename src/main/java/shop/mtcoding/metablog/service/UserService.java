@@ -69,9 +69,18 @@ public class UserService {
     } // 더티체킹 업데이트
 
     @MyLog
-    public User 프로필사진보기(Long id) {
+    public User 회원프로필보기(Long id) {
         User userPS = userRepository.findById(id)
-                .orElseThrow(()->new Exception500("로그인 된 유저가 DB에 존재하지 않음"));
+                .orElseThrow(()->new Exception400("id", "해당 유저가 존재하지 않습니다"));
+        return userPS;
+    }
+
+    // 내부로직이 동일한 서비스가 있어도 그냥 하나 더 만들자!! - 머리를 쓰지 않는 전략
+    // 나중에 화면에 대해서 서비스 로직이 변경되면 더 골치 아프다. 결국 쪼개져야 한다.
+    @MyLog
+    public User 회원정보보기(Long id) {
+        User userPS = userRepository.findById(id)
+                .orElseThrow(()->new Exception400("id", "해당 유저가 존재하지 않습니다"));
         return userPS;
     }
 }
