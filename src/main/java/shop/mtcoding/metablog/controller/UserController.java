@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.metablog.core.annotation.MyLog;
+import shop.mtcoding.metablog.core.util.Script;
 import shop.mtcoding.metablog.dto.user.UserRequest;
 import shop.mtcoding.metablog.service.UserService;
 
@@ -29,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(@Valid UserRequest.JoinInDTO joinInDTO, Errors errors){
+    public @ResponseBody String join(@Valid UserRequest.JoinInDTO joinInDTO, Errors errors){
         userService.회원가입(joinInDTO);
-        return "redirect:/loginForm";
+        return Script.href("회원가입 성공", "/loginForm");
     }
 }
