@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import shop.mtcoding.metablog.core.exception.csr.*;
 import shop.mtcoding.metablog.core.exception.ssr.*;
+import shop.mtcoding.metablog.core.util.Script;
 import shop.mtcoding.metablog.dto.ResponseDTO;
 
 @Slf4j
@@ -15,33 +17,34 @@ import shop.mtcoding.metablog.dto.ResponseDTO;
 public class MyExceptionAdvice {
 
     ////////////////////////////// VIEW
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception400.class)
-    public ResponseEntity<?> badRequest(Exception400 e){
-        return new ResponseEntity<>(e.body(), e.status());
+    public String badRequest(Exception400 e){
+        return Script.back(e.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(Exception401.class)
-    public ResponseEntity<?> unAuthorized(Exception401 e){
-        return new ResponseEntity<>(e.body(), e.status());
+    public String unAuthorized(Exception401 e){
+        return Script.back(e.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(Exception403.class)
-    public ResponseEntity<?> forbidden(Exception403 e){
-        return new ResponseEntity<>(e.body(), e.status());
+    public String forbidden(Exception403 e){
+        return Script.back(e.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(Exception404.class)
-    public ResponseEntity<?> notFound(Exception404 e){
-        ResponseDTO<String> responseDto = new ResponseDTO<>();
-        responseDto.fail(HttpStatus.NOT_FOUND, "notFound", e.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+    public String notFound(Exception404 e){
+        return Script.back(e.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception500.class)
-    public ResponseEntity<?> serverError(Exception500 e){
-        ResponseDTO<String> responseDto = new ResponseDTO<>();
-        responseDto.fail(HttpStatus.INTERNAL_SERVER_ERROR, "serverError", e.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    public String serverError(Exception500 e){
+        return Script.back(e.getMessage());
     }
 
     ////////////////////////////// API
@@ -62,16 +65,12 @@ public class MyExceptionAdvice {
 
     @ExceptionHandler(ExceptionApi404.class)
     public ResponseEntity<?> notFound(ExceptionApi404 e){
-        ResponseDTO<String> responseDto = new ResponseDTO<>();
-        responseDto.fail(HttpStatus.NOT_FOUND, "notFound", e.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(e.body(), e.status());
     }
 
     @ExceptionHandler(ExceptionApi500.class)
     public ResponseEntity<?> serverError(ExceptionApi500 e){
-        ResponseDTO<String> responseDto = new ResponseDTO<>();
-        responseDto.fail(HttpStatus.INTERNAL_SERVER_ERROR, "serverError", e.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(e.body(), e.status());
     }
 
     //////////////////////////// COMMON

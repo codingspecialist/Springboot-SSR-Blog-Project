@@ -2,10 +2,14 @@ package shop.mtcoding.metablog.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import shop.mtcoding.metablog.core.auth.MyUserDetails;
+import shop.mtcoding.metablog.core.exception.ssr.Exception400;
+import shop.mtcoding.metablog.core.util.Script;
 import shop.mtcoding.metablog.model.user.User;
 
 @Configuration
@@ -37,8 +41,9 @@ public class SecurityConfig {
                     resp.sendRedirect("/");
                 })
                 .failureHandler((req, resp, ex) -> {
-                    System.out.println("디버그 : 로그인 실패 -> " + ex.getMessage());
-                    resp.sendRedirect("/loginForm");
+                    resp.setStatus(HttpStatus.UNAUTHORIZED.value());
+                    resp.setContentType("text/html; charset=utf-8");
+                    resp.getWriter().println(Script.back("유저네임 혹은 패스워드가 잘못입력되었습니다"));
                 })
                 .and()
                 .logout()
