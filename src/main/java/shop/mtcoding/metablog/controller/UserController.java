@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @PostMapping("/s/user/{id}/updateProfile")
-    public @ResponseBody String profileUpdate(
+    public String profileUpdate(
             @PathVariable Long id,
             MultipartFile profile,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -89,10 +89,32 @@ public class UserController {
         // 3. 사진을 파일에 저장하고 그 경로를 DB에 저장
         User userPS = userService.프로필사진수정(profile, id);
 
-        // 4. 세션에 반영 (시큐리티와 직접 만든 세션)
+        // 4. 세션 동기화
         myUserDetails.setUser(userPS);
         session.setAttribute("sessionUser", userPS);
 
-        return Script.href("사진변경 성공", "/");
+        return "redirect:/";
+    }
+
+    @PostMapping("/s/user/{id}/update")
+    public @ResponseBody String update(
+            @PathVariable Long id,
+            @Valid UserRequest.UpdateInDTO updateInDTO,
+            Errors errors,
+            @AuthenticationPrincipal MyUserDetails myUserDetails
+    ){
+        // 1. 권한 체크
+        if(id != myUserDetails.getUser().getId()){
+            throw new Exception403("권한이 없습니다");
+        }
+
+        // 2. 회원정보 수정
+        User user = userService.회원정보수정(id, updateInDTO);
+
+        // 3. 세션 동기화
+        myUserDetails.setUser(user);
+        session.setAttribute("sessionUser", user);
+
+        return Script.href("회원정보 수정 성공", "/");
     }
 }

@@ -15,7 +15,7 @@ public class UserApiController {
     // 식별자에는 PK, UK
     // 자원/식별자/물음동사 (GET)
     // 자원/식별자/변경동사 (POST)
-    @GetMapping("/users/{username}/sameUsername")
+    @GetMapping("/user/{username}/sameUsername")
     public ResponseEntity<?> sameUsername(@PathVariable String username){
         userService.유저네임중복체크(username);
         return ResponseEntity.ok().build();

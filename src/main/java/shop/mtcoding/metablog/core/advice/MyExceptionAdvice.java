@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import shop.mtcoding.metablog.core.exception.csr.*;
@@ -19,31 +20,31 @@ public class MyExceptionAdvice {
     ////////////////////////////// VIEW
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception400.class)
-    public String badRequest(Exception400 e){
-        return Script.back(e.getMessage());
+    public @ResponseBody String badRequest(Exception400 e){
+        return Script.back(e.getKey()+" : "+e.getValue());
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(Exception401.class)
-    public String unAuthorized(Exception401 e){
+    public @ResponseBody String unAuthorized(Exception401 e){
         return Script.back(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(Exception403.class)
-    public String forbidden(Exception403 e){
+    public @ResponseBody String forbidden(Exception403 e){
         return Script.back(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(Exception404.class)
-    public String notFound(Exception404 e){
+    public @ResponseBody String notFound(Exception404 e){
         return Script.back(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception500.class)
-    public String serverError(Exception500 e){
+    public @ResponseBody String serverError(Exception500 e){
         return Script.back(e.getMessage());
     }
 

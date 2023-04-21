@@ -1,6 +1,7 @@
 package shop.mtcoding.metablog.model.user;
 
 import lombok.*;
+import shop.mtcoding.metablog.dto.user.UserRequest;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -39,5 +40,10 @@ public class User {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void update(String password, String email) {
+        this.password = password;
+        this.email = email;
     }
 }
