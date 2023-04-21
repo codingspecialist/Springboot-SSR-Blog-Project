@@ -6,9 +6,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.metablog.core.annotation.MyLog;
+import shop.mtcoding.metablog.core.exception.csr.ExceptionApi400;
+import shop.mtcoding.metablog.core.exception.ssr.Exception400;
 import shop.mtcoding.metablog.core.exception.ssr.Exception500;
+import shop.mtcoding.metablog.dto.ResponseDTO;
 import shop.mtcoding.metablog.dto.user.UserRequest;
+import shop.mtcoding.metablog.dto.user.UserResponse;
+import shop.mtcoding.metablog.model.user.User;
 import shop.mtcoding.metablog.model.user.UserRepository;
+
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -33,5 +40,12 @@ public class UserService {
             throw new Exception500("회원가입 실패 : "+e.getClass());
         }
 
+    }
+
+    public void 유저네임중복체크(String username) {
+        Optional<User> userOP = userRepository.findByUsername(username);
+        if(userOP.isPresent()){
+            throw new ExceptionApi400("username", "유저네임이 중복되었어요");
+        }
     }
 }

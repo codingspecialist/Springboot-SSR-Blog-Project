@@ -12,6 +12,7 @@ import shop.mtcoding.metablog.service.UserService;
 
 import javax.validation.Valid;
 
+// save, update, delete
 @RequiredArgsConstructor
 @Controller
 public class UserController {

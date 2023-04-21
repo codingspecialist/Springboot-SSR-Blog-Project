@@ -5,7 +5,7 @@
 
 <div class="container my-3">
         <div class="mb-3 d-flex">
-            <a href="/board/1/updateForm" class="btn btn-warning">수정</a>
+            <a href="/boards/1/updateForm" class="btn btn-warning">수정</a>
             <form>
                 <input type="hidden" name="id" />
                 <button class="btn btn-danger">삭제</button>
@@ -52,7 +52,7 @@
                 <div>댓글내용입니다</div>
                 <div class="d-flex">
                     <div class="font-italic">작성자 : cos &nbsp;</div>
-                    <button onClick="replyDelete()" class="badge bg-secondary">삭제</button>
+                    <button onClick="deleteReply()" class="badge bg-secondary">삭제</button>
                 </div>
             </li>
         </ul>
