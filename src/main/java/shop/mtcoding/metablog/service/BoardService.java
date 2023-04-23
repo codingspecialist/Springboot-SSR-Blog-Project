@@ -39,11 +39,20 @@ public class BoardService {
         }
     }
 
+    /*
+        isEmpty() 메소드는 문자열의 길이가 0인지 검사합니다.
+        isBlank() 메소드는 문자열이 비어있거나 공백 문자열(whitespace-only string)인지 검사합니다.
+    */
     @MyLog
-    public Page<Board> 게시글목록보기(int page) {
-        // FetchJoin (정렬은 직접 쿼리를 작성해야 한다)
-        Page<Board> boardPG = boardQueryRepository.findAll(page);
-        return boardPG;
+    public Page<Board> 게시글목록보기(int page, String keyword) {
+        if(keyword.isBlank()){
+            Page<Board> boardPG = boardQueryRepository.findAll(page);
+            return boardPG;
+        }else{
+            Page<Board> boardPG = boardQueryRepository.findAllByKeyword(page, keyword);
+            return boardPG;
+        }
+
     }
 
     @MyLog

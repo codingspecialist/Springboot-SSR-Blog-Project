@@ -5,9 +5,9 @@
 <div class="container my-3">
 
     <div class="d-flex justify-content-end">
-        <form class="d-flex col-lg-3">
-            <input class="form-control" type="text" placeholder="Search">
-            <button class="btn btn-primary" type="button">Search</button>
+        <form class="d-flex col-lg-3" action="/" method="get">
+            <input class="form-control" type="text" placeholder="Search" name="keyword">
+            <button class="btn btn-primary">Search</button>
         </form>
     </div>
     <div class="my-board-box row">
