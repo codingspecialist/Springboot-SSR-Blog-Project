@@ -13,7 +13,7 @@ import shop.mtcoding.metablog.core.exception.ssr.Exception500;
 import shop.mtcoding.metablog.core.util.MyParseUtil;
 import shop.mtcoding.metablog.dto.board.BoardRequest;
 import shop.mtcoding.metablog.model.board.Board;
-import shop.mtcoding.metablog.model.board.BoardQueryRepository;
+import shop.mtcoding.metablog.model.board.BoardJPQLRepository;
 import shop.mtcoding.metablog.model.board.BoardRepository;
 import shop.mtcoding.metablog.model.user.User;
 
@@ -23,7 +23,7 @@ import shop.mtcoding.metablog.model.user.User;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final BoardQueryRepository boardQueryRepository;
+    private final BoardJPQLRepository boardQueryRepository;
 
     @Value("${file.path}")
     private String uploadFolder;
@@ -40,24 +40,9 @@ public class BoardService {
     }
 
     @MyLog
-    public Page<Board> 게시글목록보기V1(PageRequest pageRequest) {
-        Page<Board> boardPG = boardRepository.findAll(pageRequest);
-        // 1. API 요청이면 BoardResponse.BoardListOutDTO 가 필요함
-        // 2. API 요청이 아니기 때문에 Entity를 응답할 수 있음.
-        // 3. OSIV가 false이기 때문에 Lazy Loading을 Service 단에서 완료해야 함.
-        // 4. 아래와 같이 컬렉션의 연관된 엔티티 하나를 Lazy Loading 하게 되면 1+N 문제 발생
-        // 5. @ManyToOne을 Lazy 전략으로 가져가면 default_batch_fetch_size 가 발동하지 않는다.
-        // 6. @ManyToOne을 Lazy 전략으로 가져갈 때 findAll로 컬렉션을 조회하려면 join fetch를 해주자.
-        boardPG.getContent().stream().forEach(board -> {
-            board.getUser().getUsername();
-        });
-        return boardPG;
-    }
-
-    @MyLog
-    public Page<Board> 게시글목록보기V2(PageRequest pageRequest) {
-        // FetchJoin
-        Page<Board> boardPG = boardQueryRepository.findAll(pageRequest);
+    public Page<Board> 게시글목록보기(int page) {
+        // FetchJoin (정렬은 직접 쿼리를 작성해야 한다)
+        Page<Board> boardPG = boardQueryRepository.findAll(page);
         return boardPG;
     }
 

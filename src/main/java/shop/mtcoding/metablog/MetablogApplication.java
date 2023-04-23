@@ -10,43 +10,24 @@ import shop.mtcoding.metablog.model.board.BoardRepository;
 import shop.mtcoding.metablog.model.user.User;
 import shop.mtcoding.metablog.model.user.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
-public class MetablogApplication {
+public class MetablogApplication extends DummyEntity{
 
     @Bean
-    CommandLineRunner init(BCryptPasswordEncoder passwordEncoder, UserRepository userRepository, BoardRepository boardRepository) {
+    CommandLineRunner init(UserRepository userRepository, BoardRepository boardRepository, BCryptPasswordEncoder passwordEncoder) {
         return args -> {
-            User ssar = User.builder()
-                    .username("ssar")
-                    .password(passwordEncoder.encode("1234"))
-                    .email("ssar@nate.com")
-                    .role("USER")
-                    .profile("person.png")
-                    .build();
-            User cos = User.builder()
-                    .username("cos")
-                    .password(passwordEncoder.encode("1234"))
-                    .email("cos@nate.com")
-                    .role("USER")
-                    .profile("person.png")
-                    .build();
+            User ssar = newUser("ssar", passwordEncoder);
+            User cos = newUser("cos", passwordEncoder);
+            List<Board> boardList = new ArrayList<>();
+            for (int i = 1; i < 16; i++) {
+                boardList.add(newBoard("제목"+i, ssar));
+            }
             userRepository.saveAll(Arrays.asList(ssar, cos));
-
-            Board b1 = Board.builder()
-                    .title("제목1")
-                    .content("내용1")
-                    .user(ssar)
-                    .thumbnail("/upload/person.png")
-                    .build();
-            Board b2 = Board.builder()
-                    .title("제목2")
-                    .content("내용2")
-                    .user(cos)
-                    .thumbnail("/upload/person.png")
-                    .build();
-            boardRepository.saveAll(Arrays.asList(b1, b2));
+            boardRepository.saveAll(boardList);
         };
     }
 

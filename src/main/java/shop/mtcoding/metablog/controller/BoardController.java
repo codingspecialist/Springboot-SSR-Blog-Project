@@ -49,8 +49,7 @@ public class BoardController {
 
     @GetMapping({"/", "/board"})
     public String main(@RequestParam(defaultValue = "0") int page, Model model){
-        PageRequest pageRequest = PageRequest.of(page, 8, Sort.by("id").descending());
-        Page<Board> boardPG = boardService.게시글목록보기V2(pageRequest);
+        Page<Board> boardPG = boardService.게시글목록보기(page);
         model.addAttribute("boardPG", boardPG);
         return "board/main";
     }
