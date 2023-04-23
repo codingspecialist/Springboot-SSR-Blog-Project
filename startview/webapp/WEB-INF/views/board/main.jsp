@@ -3,6 +3,14 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container my-3">
+
+    <div class="d-flex justify-content-end">
+        <form class="d-flex col-lg-3">
+            <input class="form-control" type="text" placeholder="Search" name="keyword">
+            <button class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
     <div class="my-board-box row">
 
         <%-- 글 아이템 시작 --%>
