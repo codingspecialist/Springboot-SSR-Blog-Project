@@ -57,10 +57,10 @@ public class UserService {
     @MyLog
     @Transactional
     public User 프로필사진수정(MultipartFile profile, Long id) {
+        String uuidImageName = MyFileUtil.write(uploadFolder, profile);
+        User userPS = userRepository.findById(id)
+                .orElseThrow(()->new Exception500("로그인 된 유저가 DB에 존재하지 않음"));
         try {
-            String uuidImageName = MyFileUtil.write(uploadFolder, profile);
-            User userPS = userRepository.findById(id)
-                    .orElseThrow(()->new Exception500("로그인 된 유저가 DB에 존재하지 않음"));
             userPS.changeProfile(uuidImageName);
             return userPS;
         }catch (Exception e){
